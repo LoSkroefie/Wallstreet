@@ -182,14 +182,6 @@ python manage.py runserver
 
 ## Contributing
 
-This project is being developed by the Technology/Domain Specialist II team. All contributions must follow the guidelines in MasterContext.md.
-
-## License
-
-*(To be determined)*
-
-## Contributing
-
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Quick Contribution Steps
