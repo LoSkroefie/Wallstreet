@@ -80,9 +80,25 @@ const authorize = (...roles) => {
   };
 };
 
+const authenticate = authenticateJWT;
+
+const requireAdmin = (req, res, next) => {
+  if (!req.user) {
+    return unauthorizedResponse(res, 'Authentication required');
+  }
+  
+  if (req.user.role !== 'admin') {
+    return forbiddenResponse(res, 'Admin access required');
+  }
+  
+  next();
+};
+
 module.exports = {
   authenticateJWT,
   authenticateApiKey,
   optionalAuth,
   authorize,
+  authenticate,
+  requireAdmin,
 };

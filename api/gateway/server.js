@@ -9,6 +9,8 @@ const logger = require('../../platform-core/config/logger');
 const { errorHandler, notFoundHandler } = require('../middleware/errorHandler');
 const { apiRateLimiter } = require('../middleware/rateLimiter');
 const { setupSwagger } = require('./swagger');
+const notificationServer = require('../../platform-core/websocket/notificationServer');
+const jobProcessor = require('../../platform-core/queue/jobProcessor');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -132,25 +134,59 @@ app.get('/', (req, res) => {
 const apiRoutes = require('./routes');
 app.use('/api/v1', apiRoutes);
 
+let server;
+
 app.use(notFoundHandler);
 
 app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
+  server = app.listen(PORT, async () => {
     logger.info(`Wallstreet API Gateway running on port ${PORT}`);
     logger.info(`Environment: ${process.env.NODE_ENV}`);
     logger.info(`Health check: http://localhost:${PORT}/health`);
+    
+    try {
+      notificationServer.initialize(server);
+      logger.info('WebSocket notification server initialized');
+    } catch (error) {
+      logger.error('Failed to initialize WebSocket server:', error);
+    }
+    
+    try {
+      await jobProcessor.start();
+      logger.info('Job queue processors started');
+    } catch (error) {
+      logger.error('Failed to start job processors:', error);
+    }
   });
 }
 
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async () => {
   logger.info('SIGTERM signal received: closing HTTP server');
+  
+  try {
+    notificationServer.close();
+    await jobProcessor.stop();
+    logger.info('Graceful shutdown complete');
+  } catch (error) {
+    logger.error('Error during shutdown:', error);
+  }
+  
   process.exit(0);
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
   logger.info('SIGINT signal received: closing HTTP server');
+  
+  try {
+    notificationServer.close();
+    await jobProcessor.stop();
+    logger.info('Graceful shutdown complete');
+  } catch (error) {
+    logger.error('Error during shutdown:', error);
+  }
+  
   process.exit(0);
 });
 
