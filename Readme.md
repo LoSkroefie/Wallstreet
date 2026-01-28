@@ -33,6 +33,65 @@ Wallstreet is a financial technology platform being modernized to enable seamles
 - ✅ Real-time WebSocket notifications
 - ✅ Analytics and usage tracking
 
+### API Endpoints
+
+### Authentication
+- `POST /api/v1/auth/register` - User registration
+- `POST /api/v1/auth/login` - User login
+- `POST /api/v1/auth/logout` - User logout
+- `POST /api/v1/auth/refresh` - Refresh access token
+
+### Two-Factor Authentication
+- `POST /api/v1/2fa/setup` - Generate 2FA secret and QR code
+- `POST /api/v1/2fa/enable` - Enable 2FA with token verification
+- `POST /api/v1/2fa/disable` - Disable 2FA
+- `POST /api/v1/2fa/verify` - Verify 2FA token
+- `GET /api/v1/2fa/status` - Get 2FA status
+- `POST /api/v1/2fa/backup-codes` - Generate backup codes
+
+### Users
+- `GET /api/v1/users/profile` - Get user profile
+- `PUT /api/v1/users/profile` - Update user profile
+- `DELETE /api/v1/users/profile` - Delete user account
+
+### Accounts
+- `GET /api/v1/accounts` - List user accounts
+- `POST /api/v1/accounts` - Create new account
+- `GET /api/v1/accounts/:id` - Get account details
+- `PUT /api/v1/accounts/:id` - Update account
+- `DELETE /api/v1/accounts/:id` - Delete account
+
+### Transactions
+- `GET /api/v1/transactions` - List transactions
+- `POST /api/v1/transactions` - Create transaction
+- `GET /api/v1/transactions/:id` - Get transaction details
+- `PUT /api/v1/transactions/:id` - Update transaction
+
+### Webhooks
+- `POST /api/v1/webhooks` - Create webhook
+- `GET /api/v1/webhooks` - List user webhooks
+- `PUT /api/v1/webhooks/:id` - Update webhook
+- `DELETE /api/v1/webhooks/:id` - Delete webhook
+- `POST /api/v1/webhooks/:id/trigger` - Manually trigger webhook
+
+### Payments
+- `POST /api/v1/payments/stripe/customer` - Create Stripe customer
+- `POST /api/v1/payments/stripe/payment-intent` - Create payment intent
+- `POST /api/v1/payments/stripe/refund` - Process refund
+- `POST /api/v1/payments/paypal/order` - Create PayPal order
+- `POST /api/v1/payments/paypal/order/:id/capture` - Capture PayPal order
+- `POST /api/v1/payments/stripe/webhook` - Stripe webhook handler
+- `POST /api/v1/payments/paypal/webhook` - PayPal webhook handler
+
+### Analytics
+- `POST /api/v1/analytics/track` - Track analytics event
+- `GET /api/v1/analytics/user/stats` - Get user statistics
+- `GET /api/v1/analytics/platform/stats` - Get platform stats (admin)
+- `GET /api/v1/analytics/transactions` - Get transaction analytics
+- `GET /api/v1/analytics/endpoints` - Get popular endpoints (admin)
+- `GET /api/v1/analytics/active-users` - Get active user count (admin)
+- `POST /api/v1/analytics/report` - Generate custom report (admin)
+
 ### 🔗 Backend Integration Systems (Complete)
 - ✅ Webhook delivery with automatic retry logic
 - ✅ Payment gateway integrations (Stripe & PayPal)
