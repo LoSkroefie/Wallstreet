@@ -204,14 +204,6 @@ npm run dev
 python manage.py runserver
 ```
 
-## Documentation
-
-- **[MasterContext.md](MasterContext.md)** - Project rules and workflow
-- **[OriginalPlan.md](OriginalPlan.md)** - Complete development blueprint
-- **[BuildPlan.md](BuildPlan.md)** - Feature tracking checklist
-- **[ContinuePrompt.md](ContinuePrompt.md)** - Development progress log
-- **DeploymentGuide.md** - Deployment procedures (Coming soon)
-
 ## Performance Targets
 
 | Metric | Target |
