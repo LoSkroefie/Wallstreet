@@ -106,3 +106,13 @@ dump.rdb
 # Package manager locks (keep package-lock.json but ignore others)
 yarn.lock
 pnpm-lock.yaml
+
+# Internal project management files (not for public repo)
+MasterContext.md
+OriginalPlan.md
+ContinuePrompt.md
+BuildPlan.md
+DeploymentGuide.md
+GITHUB_SETUP.md
+GITHUB_WIKI_SETUP.md
+TESTING_WITHOUT_DOCKER.md
